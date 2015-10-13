@@ -22,6 +22,7 @@ ol.control.LayerSwitcher = function(opt_options) {
     element.className = this.hiddenClassName;
 
     var button = document.createElement('button');
+    button.setAttribute('type', 'button');
     button.setAttribute('title', tipLabel);
     element.appendChild(button);
 
