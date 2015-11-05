@@ -27,7 +27,7 @@ See [the examples](./examples) for usage.
 
 |Name|Type|Description|
 |:---|:---|:----------|
-|`opt_options`|`Object`| Control options, extends olx.control.ControlOptions adding: **`tipLabel`** `String` - the button tooltip. |
+|`opt_options`|`Object`| Control options, extends olx.control.ControlOptions adding: **`tipLabel`** `String` - the button tooltip.<br>**`collapsed`** `Boolean` - whether to keep collapsed automatically (default: true). |
 
 #### Extends
 

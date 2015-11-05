@@ -5,6 +5,7 @@
  * @extends {ol.control.Control}
  * @param {Object} opt_options Control options, extends olx.control.ControlOptions adding:
  *                              **`tipLabel`** `String` - the button tooltip.
+ *                              **`collapsed`** `Boolean` - whether to keep collapsed automatically (default: true).
  */
 ol.control.LayerSwitcher = function(opt_options) {
 
@@ -13,13 +14,16 @@ ol.control.LayerSwitcher = function(opt_options) {
     var tipLabel = options.tipLabel ?
       options.tipLabel : 'Legend';
 
+    var collapsed = typeof(options.collapsed) != 'undefined' ?
+      options.collapsed : true;
+
     this.mapListeners = [];
 
     this.hiddenClassName = 'ol-unselectable ol-control layer-switcher';
     this.shownClassName = this.hiddenClassName + ' shown';
 
     var element = document.createElement('div');
-    element.className = this.hiddenClassName;
+    element.className = collapsed ? this.hiddenClassName : this.shownClassName;
 
     var button = document.createElement('button');
     button.setAttribute('type', 'button');
@@ -42,7 +46,7 @@ ol.control.LayerSwitcher = function(opt_options) {
 
     element.onmouseout = function(e) {
         e = e || window.event;
-        if (!element.contains(e.toElement)) {
+        if (collapsed && !element.contains(e.toElement)) {
             this_.hidePanel();
         }
     };
