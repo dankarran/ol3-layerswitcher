@@ -11,10 +11,10 @@ ol.control.LayerSwitcher = function(opt_options) {
 
     var options = opt_options || {};
 
-    var tipLabel = options.tipLabel ?
+    this.tipLabel = options.tipLabel ?
       options.tipLabel : 'Legend';
 
-    var collapsed = typeof(options.collapsed) != 'undefined' ?
+    this.collapsed = typeof(options.collapsed) != 'undefined' ?
       options.collapsed : true;
 
     this.mapListeners = [];
@@ -23,11 +23,11 @@ ol.control.LayerSwitcher = function(opt_options) {
     this.shownClassName = this.hiddenClassName + ' shown';
 
     var element = document.createElement('div');
-    element.className = collapsed ? this.hiddenClassName : this.shownClassName;
+    element.className = this.collapsed ? this.hiddenClassName : this.shownClassName;
 
     var button = document.createElement('button');
     button.setAttribute('type', 'button');
-    button.setAttribute('title', tipLabel);
+    button.setAttribute('title', this.tipLabel);
     element.appendChild(button);
 
     this.panel = document.createElement('div');
@@ -46,7 +46,7 @@ ol.control.LayerSwitcher = function(opt_options) {
 
     element.onmouseout = function(e) {
         e = e || window.event;
-        if (collapsed && !element.contains(e.toElement)) {
+        if (this.collapsed && !element.contains(e.toElement)) {
             this_.hidePanel();
         }
     };
@@ -111,7 +111,9 @@ ol.control.LayerSwitcher.prototype.setMap = function(map) {
     if (map) {
         var this_ = this;
         this.mapListeners.push(map.on('pointerdown', function() {
-            this_.hidePanel();
+            if (this.collapsed) {
+              this_.hidePanel();
+            }
         }));
         this.renderPanel();
     }
