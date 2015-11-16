@@ -46,7 +46,7 @@ ol.control.LayerSwitcher = function(opt_options) {
 
     element.onmouseout = function(e) {
         e = e || window.event;
-        if (this.collapsed && !element.contains(e.toElement)) {
+        if (this_.collapsed && !element.contains(e.toElement)) {
             this_.hidePanel();
         }
     };
